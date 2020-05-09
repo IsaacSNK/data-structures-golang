@@ -25,13 +25,14 @@ package lists
  * SOFTWARE.
  */
 import (
-	"errors"
 	"fmt"
 )
 
+type INodeValue interface{}
+
 type Node struct {
 	next  *Node
-	Value int
+	Value INodeValue
 }
 
 type List struct {
@@ -42,16 +43,16 @@ func NewList() *List {
 	return &List{}
 }
 
-func (l *List) AddFirst(i int) error {
-	if l == nil {
-		return errors.New("list cannot be nil")
-	}
-	newNode := &Node{Value: i, next: l.first}
-	l.first = newNode
-	return nil
+func (l *List) Add(i INodeValue) {
+	l.AddLast(i)
 }
 
-func (l *List) AddLast(value int) {
+func (l *List) AddFirst(i INodeValue) {
+	newNode := &Node{Value: i, next: l.first}
+	l.first = newNode
+}
+
+func (l *List) AddLast(value INodeValue) {
 	if l.first == nil {
 		l.first = &Node{Value: value}
 		return
@@ -61,6 +62,10 @@ func (l *List) AddLast(value int) {
 		temp = temp.next
 	}
 	temp.next = &Node{Value: value}
+}
+
+func (l *List) AddAll(listToAdd *List) {
+
 }
 
 func (l *List) Print() {
