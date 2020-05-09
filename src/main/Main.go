@@ -8,4 +8,5 @@ func main() {
 	list.AddLast(2)
 	list.Print()
 	list.AddFirst(0)
+	list.Print()
 }

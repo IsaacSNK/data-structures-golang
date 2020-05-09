@@ -25,6 +25,7 @@ package lists
  * SOFTWARE.
  */
 import (
+	"errors"
 	"fmt"
 )
 
@@ -41,8 +42,13 @@ func NewList() *List {
 	return &List{}
 }
 
-func (l *List) AddFirst(i int) {
-
+func (l *List) AddFirst(i int) error {
+	if l == nil {
+		return errors.New("list cannot be nil")
+	}
+	newNode := &Node{Value: i, next: l.first}
+	l.first = newNode
+	return nil
 }
 
 func (l *List) AddLast(value int) {
